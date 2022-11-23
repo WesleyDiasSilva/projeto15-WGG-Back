@@ -1,10 +1,9 @@
 import { MongoClient } from "mongodb";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
+
 dotenv.config()
 
-console.log(process.env.MONGO_URI)
-
-  const client = new MongoClient("mongodb+srv://wesleyAdmin:wggAdmin123@cluster0.0wuxdob.mongodb.net/?retryWrites=true&w=majority")
+  const client = new MongoClient(process.env.MONGO_URI)
   try{
     await client.connect();
     console.log("Database is connected")
@@ -13,7 +12,7 @@ console.log(process.env.MONGO_URI)
   }
   
   
-const database = client.db("wwg")
+const database = client.db("wgg")
 
 
 export const connectionUser = database.collection("users")
