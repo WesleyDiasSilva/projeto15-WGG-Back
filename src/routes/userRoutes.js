@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { signUp } from "../controllers/signUpController.js";
-import { connectionUser } from "../database/connection.js";
+import { login } from "../controllers/userController.js";
+import { loginMiddleware } from "../middlewares/loginMiddleware.js";
 
 const route = Router();
 
 route.post("/sign-up", signUp)
+
+route.post("/sign-in", loginMiddleware, login)
 
 export default route;
