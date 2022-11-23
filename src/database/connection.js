@@ -1,5 +1,6 @@
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
+
 dotenv.config()
 
   const client = new MongoClient(process.env.MONGO_URI)
@@ -11,7 +12,7 @@ dotenv.config()
   }
   
   
-const database = client.db("wwg")
+const database = client.db("wgg")
 
 
 export const connectionUser = database.collection("users")

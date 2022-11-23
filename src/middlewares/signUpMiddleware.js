@@ -1,12 +1,10 @@
-import joi from "joi";
+import Joi from "joi";
 
-export function signUpMiddleware(req, res, next){
-    const signUpSchema = joi.object({
-        name: joi.string().required(),
-        username: joi.string.min(3).required(),
-        birthday: joi.date().format(['YYYY/MM/DD', 'DD-MM-YYY']).required(),
-        email: joi.string.email().required(),
-        picture: joi.string(),
-        password: joi.string.required()
-    })
-}
+export const signUpSchema = Joi.object({
+    name: Joi.string().required(),
+    username: Joi.string().required(),
+    birthday: Joi.number().integer().min(1800).max(2022).required(),
+    email: Joi.string().email().required(),
+    picture: Joi.string(),
+    password: Joi.string().required()
+})

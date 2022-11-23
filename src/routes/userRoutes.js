@@ -1,9 +1,10 @@
 import { Router } from "express";
+import { signUp } from "../controllers/signUpController.js";
 import { connectionUser } from "../database/connection.js";
 
 const route = Router();
 
-route.post("/sign-up", async (req, res) => {
+route.post("/sign-in", async (req, res) => {
   const {name, email} = req.body;
  try{
   const result = await connectionUser.insertOne({name, email})
@@ -13,5 +14,7 @@ route.post("/sign-up", async (req, res) => {
   console.log(err)
  }
 })
+
+route.post("/sign-up", signUp)
 
 export default route;
