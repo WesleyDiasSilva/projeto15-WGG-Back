@@ -4,7 +4,8 @@ import { loginMiddleware } from "../middlewares/loginMiddleware.js";
 
 const route = Router();
 
+route.post("/sign-up", signUp)
 
-route.post("/sign-up", loginMiddleware, login)
+route.post("/sign-in", loginMiddleware, login)
 
 export default route;
