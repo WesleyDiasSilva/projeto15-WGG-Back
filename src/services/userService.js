@@ -2,13 +2,17 @@ import bcrypt from "bcrypt";
 import { schemaEmail } from "../models/loginModel.js";
 import { findEmail, findUsername } from "../repositories/userRepository.js";
 import jwt from "jsonwebtoken";
-import { createToken, findSession } from "../repositories/sessionsRepository.js";
+import {
+  createToken,
+  findSession,
+} from "../repositories/sessionsRepository.js";
 
 export async function serviceLogin(emailOrUsername, password) {
   const validationEmail = schemaEmail.validate({ email: emailOrUsername });
 
   if (!validationEmail.error) {
     const result = await findEmail(emailOrUsername);
+
     if (result.status) {
       const validationHashUser = bcrypt.compareSync(password, result.user.hash);
       if (validationHashUser) {
@@ -21,6 +25,7 @@ export async function serviceLogin(emailOrUsername, password) {
     }
   } else {
     const result = await findUsername(emailOrUsername);
+    console.log(result);
     if (result.status) {
       const validationHashUser = bcrypt.compareSync(password, result.user.hash);
       if (validationHashUser) {
@@ -45,12 +50,11 @@ export async function serviceToken(email, username) {
       return { status: false };
     }
 
-    const resultCreatedToken = (await createToken(newToken, username)).status
-    if(!resultCreatedToken){
-      return { status: false }
+    const resultCreatedToken = (await createToken(newToken, username)).status;
+    if (!resultCreatedToken) {
+      return { status: false };
     }
 
-    return {status: true, token: newToken}
-
+    return { status: true, token: newToken };
   } catch (err) {}
 }

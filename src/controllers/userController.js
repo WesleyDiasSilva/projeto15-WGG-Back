@@ -16,7 +16,7 @@ export async function login(req, res) {
   if (resultToken) {
     res.status(200).send(resultToken.token);
     return;
-  }else{
+  } else {
     res.sendStatus(400);
     return;
   }
