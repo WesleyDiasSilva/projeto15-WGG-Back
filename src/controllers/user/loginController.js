@@ -1,4 +1,4 @@
-import { serviceLogin, serviceToken } from "../services/userService.js";
+import { serviceLogin, serviceToken } from "../../services/userService.js";
 
 export async function login(req, res) {
   const { emailOrUsername, password } = req.locals;

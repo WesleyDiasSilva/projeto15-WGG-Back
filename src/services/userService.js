@@ -2,7 +2,11 @@ import bcrypt from "bcrypt";
 import { schemaEmail } from "../models/loginModel.js";
 import { findEmail, findUsername } from "../repositories/userRepository.js";
 import jwt from "jsonwebtoken";
-import { createToken, findSession } from "../repositories/sessionsRepository.js";
+import {
+  createToken,
+  deleteSession,
+  findSession,
+} from "../repositories/sessionsRepository.js";
 
 export async function serviceLogin(emailOrUsername, password) {
   const validationEmail = schemaEmail.validate({ email: emailOrUsername });
@@ -45,12 +49,26 @@ export async function serviceToken(email, username) {
       return { status: false };
     }
 
-    const resultCreatedToken = (await createToken(newToken, username)).status
-    if(!resultCreatedToken){
-      return { status: false }
+    const resultCreatedToken = (
+      await createToken("Bearer " + newToken, username)
+    ).status;
+    if (!resultCreatedToken) {
+      return { status: false };
     }
 
-    return {status: true, token: newToken}
-
+    return { status: true, token: newToken };
   } catch (err) {}
+}
+
+export async function serviceLogout(username) {
+  try {
+    const result = (await deleteSession(username)).status;
+    if (result) {
+      return { status: true };
+    } else {
+      return { status: false };
+    }
+  } catch (err) {
+    return { status: false };
+  }
 }

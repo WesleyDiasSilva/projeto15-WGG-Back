@@ -2,11 +2,10 @@ import { connectionSession } from "../database/connection.js";
 
 export async function createToken(token, username) {
   try {
-    const result = await connectionSession.insertOne({ token, username });
-    return {status: true}
+    await connectionSession.insertOne({ token: "Bearer " + token, username });
+    return { status: true };
   } catch (err) {
-    console.log(err)
-    return {status: false}
+    return { status: false };
   }
 }
 
@@ -19,7 +18,16 @@ export async function findSession(username) {
       return { status: false };
     }
   } catch (err) {
-    console.log(err)
-    return
+    console.log(err);
+    return;
+  }
+}
+
+export async function deleteSession(username) {
+  try {
+    await connectionSession.deleteOne({ username });
+    return { status: true };
+  } catch {
+    return { status: false };
   }
 }
