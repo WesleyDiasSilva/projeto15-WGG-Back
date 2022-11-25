@@ -5,7 +5,6 @@ export async function createToken(token, username) {
     await connectionSession.insertOne({ token, username });
     return { status: true };
   } catch (err) {
-    console.log(err);
     return { status: false };
   }
 }
@@ -21,5 +20,14 @@ export async function findSession(username) {
   } catch (err) {
     console.log(err);
     return;
+  }
+}
+
+export async function deleteSession(username) {
+  try {
+    await connectionSession.deleteOne({ username });
+    return { status: true };
+  } catch {
+    return { status: false };
   }
 }

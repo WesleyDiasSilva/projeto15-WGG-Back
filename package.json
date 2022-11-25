@@ -5,8 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start":"node ./src/server.js",
-    "dev": "npx nodemon src/server.js"
+    "start": "node ./src/server.js",
+    "dev": "npx nodemon src/server.js",
+    "seed":"node ./src/seed.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,8 @@
   },
   "homepage": "https://github.com/WesleyDiasSilva/projeto15-WGG-Back#readme",
   "dependencies": {
+    "@joi/date": "^2.1.0",
+    "axios": "^1.2.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
