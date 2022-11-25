@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { connectionUser } from "../database/connection.js";
+import { connectionUser } from "../../database/connection.js";
 
 export async function signUp(req, res) {
     const user = req.body;
