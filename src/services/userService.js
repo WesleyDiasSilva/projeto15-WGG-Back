@@ -10,11 +10,10 @@ import {
 
 export async function serviceLogin(emailOrUsername, password) {
   const validationEmail = schemaEmail.validate({ email: emailOrUsername });
-
   if (!validationEmail.error) {
     const result = await findEmail(emailOrUsername);
     if (result.status) {
-      const validationHashUser = bcrypt.compareSync(password, result.user.hash);
+      const validationHashUser = bcrypt.compareSync(password, result.user.password);
       if (validationHashUser) {
         return { status: true, user: result.user };
       } else {
@@ -26,7 +25,7 @@ export async function serviceLogin(emailOrUsername, password) {
   } else {
     const result = await findUsername(emailOrUsername);
     if (result.status) {
-      const validationHashUser = bcrypt.compareSync(password, result.user.hash);
+      const validationHashUser = bcrypt.compareSync(password, result.user.password);
       if (validationHashUser) {
         return { status: true, user: result.user };
       } else {
