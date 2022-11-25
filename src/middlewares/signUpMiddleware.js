@@ -1,10 +1,15 @@
-import Joi from "joi";
+import {signUpSchema} from "../models/signUpModel.js"
 
-export const signUpSchema = Joi.object({
-  name: Joi.string().required(),
-  username: Joi.string().required(),
-  birthday: Joi.number().integer().min(1800).max(2022).required(),
-  email: Joi.string().email().required(),
-  picture: Joi.string(),
-  password: Joi.string().required(),
-});
+export function signUpMiddleware(req, res, next){
+    const user = req.body
+    const validation = signUpSchema.validate(user, {abortEarly: false})
+
+    if(validation.error){
+        const messageError = validation.error.details.map(detail => detail.message)
+        
+        res.status(422).send(messageError)
+        return 
+    }
+
+    next()
+}
