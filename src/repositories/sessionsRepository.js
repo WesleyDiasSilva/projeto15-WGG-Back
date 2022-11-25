@@ -2,7 +2,7 @@ import { connectionSession } from "../database/connection.js";
 
 export async function createToken(token, username) {
   try {
-    await connectionSession.insertOne({ token: "Bearer " + token, username });
+    await connectionSession.insertOne({ token, username });
     return { status: true };
   } catch (err) {
     return { status: false };
