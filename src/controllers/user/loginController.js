@@ -1,4 +1,4 @@
-import { serviceLogin, serviceToken } from "../services/userService.js";
+import { serviceLogin, serviceToken } from "../../services/userService.js";
 
 export async function login(req, res) {
   const { emailOrUsername, password } = req.locals;
@@ -16,7 +16,7 @@ export async function login(req, res) {
   if (resultToken) {
     res.status(200).send(resultToken.token);
     return;
-  }else{
+  } else {
     res.sendStatus(400);
     return;
   }
