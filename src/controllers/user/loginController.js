@@ -4,7 +4,6 @@ export async function login(req, res) {
   const { emailOrUsername, password } = req.locals;
 
   const resultLogin = await serviceLogin(emailOrUsername, password);
-
   if (!resultLogin.status) {
     res.sendStatus(400);
     return;

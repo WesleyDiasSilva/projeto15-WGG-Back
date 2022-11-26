@@ -11,6 +11,7 @@ route.post("/sign-up", signUpMiddleware, signUp)
 route.post("/sign-in", loginMiddleware, login);
 
 route.use(authUserMiddleware);
-route.delete("/logout", logout);
+route.delete("/session", logout);
+route
 
 export default route;

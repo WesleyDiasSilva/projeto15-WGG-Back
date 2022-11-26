@@ -24,6 +24,7 @@ export async function serviceLogin(emailOrUsername, password) {
     }
   } else {
     const result = await findUsername(emailOrUsername);
+    console.log(result);
     if (result.status) {
       const validationHashUser = bcrypt.compareSync(password, result.user.password);
       if (validationHashUser) {
@@ -48,9 +49,7 @@ export async function serviceToken(email, username) {
       return { status: false };
     }
 
-    const resultCreatedToken = (
-      await createToken("Bearer " + newToken, username)
-    ).status;
+    const resultCreatedToken = (await createToken(newToken, username)).status;
     if (!resultCreatedToken) {
       return { status: false };
     }

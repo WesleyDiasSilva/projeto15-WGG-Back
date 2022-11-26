@@ -1,9 +1,10 @@
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
-
 dotenv.config();
 
-const client = new MongoClient(process.env.MONGO_URI);
+const client = new MongoClient(
+  "mongodb+srv://wesleyAdmin:wggAdmin123@cluster0.0wuxdob.mongodb.net/?retryWrites=true&w=majority"
+);
 try {
   await client.connect();
   console.log("Database is connected");
