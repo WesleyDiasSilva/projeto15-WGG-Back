@@ -7,13 +7,17 @@ import {
   deleteSession,
   findSession,
 } from "../repositories/sessionsRepository.js";
+import { connectionGames } from "../database/connection.js";
 
 export async function serviceLogin(emailOrUsername, password) {
   const validationEmail = schemaEmail.validate({ email: emailOrUsername });
   if (!validationEmail.error) {
     const result = await findEmail(emailOrUsername);
     if (result.status) {
-      const validationHashUser = bcrypt.compareSync(password, result.user.password);
+      const validationHashUser = bcrypt.compareSync(
+        password,
+        result.user.password
+      );
       if (validationHashUser) {
         return { status: true, user: result.user };
       } else {
@@ -26,7 +30,10 @@ export async function serviceLogin(emailOrUsername, password) {
     const result = await findUsername(emailOrUsername);
     console.log(result);
     if (result.status) {
-      const validationHashUser = bcrypt.compareSync(password, result.user.password);
+      const validationHashUser = bcrypt.compareSync(
+        password,
+        result.user.password
+      );
       if (validationHashUser) {
         return { status: true, user: result.user };
       } else {
@@ -66,6 +73,15 @@ export async function serviceLogout(username) {
     } else {
       return { status: false };
     }
+  } catch (err) {
+    return { status: false };
+  }
+}
+
+export async function serviceSendGames() {
+  try {
+    const games = await connectionGames.find({}).toArray();
+    return { status: true, games };
   } catch (err) {
     return { status: false };
   }
