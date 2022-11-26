@@ -12,7 +12,7 @@ try {
   console.log(err);
 }
 
-const database = client.db("wwg");
+const database = client.db("wgg");
 
 export const connectionUser = database.collection("users");
 export const connectionGames = database.collection("games");

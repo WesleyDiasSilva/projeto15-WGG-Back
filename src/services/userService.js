@@ -12,7 +12,6 @@ export async function serviceLogin(emailOrUsername, password) {
   const validationEmail = schemaEmail.validate({ email: emailOrUsername });
   if (!validationEmail.error) {
     const result = await findEmail(emailOrUsername);
-    console.log(result)
     if (result.status) {
       const validationHashUser = bcrypt.compareSync(password, result.user.password);
       if (validationHashUser) {

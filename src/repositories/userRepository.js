@@ -1,10 +1,8 @@
 import { connectionUser } from "../database/connection.js";
 
 export async function findEmail(email) {
-  console.log(email)
   try {
     const user = await connectionUser.findOne({ email });
-    console.log(user)
     if (user) {
       return { user, status: true };
     }
