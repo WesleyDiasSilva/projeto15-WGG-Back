@@ -53,7 +53,10 @@ export async function serviceToken(email, username) {
   try {
     const existSessionThisUser = (await findSession(username)).status;
     if (existSessionThisUser) {
-      return { status: false };
+      const deleteSessionOk = await deleteSession(username)
+      if(!deleteSessionOk){
+        return {status: false}
+      }
     }
 
     const resultCreatedToken = (await createToken(newToken, username)).status;
